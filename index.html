@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Bebas+Neue' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    
+    <title>Firestore🔥</title>
+    <style>
+
+        body{
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: url('./library.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(0, 0, 0, 0.5);
+
+        }
+        
+        body>h1{
+            font-family: 'Lobster', 'Impact';
+            color: #ffffff;
+            font-size: 4em;
+        }
+
+        #bookAddForm{
+
+            padding: 1em;
+            margin: 1em;
+            background-color: rgba(255, 81, 0, 0.5);
+            color: white;
+            font-size: 2em;
+            text-align: center;
+
+            border-radius: 1em;
+
+
+        }
+
+        #bookAddForm div{
+
+            text-align: right;
+
+        }
+
+        #bookAddForm input{
+
+            height: 3em;
+            width: 16em;
+            background-color: rgba(0, 0, 0, 0);
+            border: 2px solid white;
+            color: white;
+            border-radius: 4em;
+            padding-left: 1em;
+            padding-right: 1em;
+            margin-bottom: 1em;
+            font-size: 1rem;
+
+        }
+
+        #bookAddForm button{
+
+            background-color: rgb(0, 0, 0, 0);
+            color: white;
+            padding: 1em;
+            border: none;
+            margin-right: 1em;
+            cursor: pointer;
+            font-size: 0.5em;
+            border: 2px solid #ffffff;
+            font-family: 'Righteous', 'Arial';
+            font-weight: lighter;
+        }
+
+        #bookAddForm button:hover{
+
+            background-color: #ffffff;
+            color:  rgba(255, 81, 0, 1);
+
+        }
+
+        #bookAddForm label{
+            font-family: 'Righteous','Arial';
+        }
+
+        #bookDisplayGrid {
+            display: flex;
+            gap: 1em;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #bookDisplayGrid .bookTile {
+            /* border: 1px solid black; */
+            padding: 1em;
+            border-radius: 0.5rem;
+            background-color: rgba(165, 42, 42, 0.6);
+            min-width: 200px;
+            color: white;
+            border: 3px solid rgba(0, 0, 0, 0.5);
+
+        }
+
+        #bookDisplayGrid .bookTile h3{
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 0.5em;
+            border-radius: 1rem;
+            font-family: 'Pacifico', 'Arial';
+            font-size: 1.5em;
+            font-weight: lighter;
+            
+        }
+
+        #bookDisplayGrid .bookTile p{
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 0.5em 1em 0.5em 1em;
+            border-radius: 0.2rem;
+            color: brown;
+            font-family: 'Bebas Neue';
+            text-transform: uppercase;
+            font-size: 1.3em;
+        }
+        
+        #bookDisplayGrid .bookTile .updtButton{
+
+            background-color: rgb(5, 99, 5);
+            color: white;
+            padding: 0.6em;
+            border: none;
+            margin-right: 1em;
+            /* font-weight: bold; */
+            cursor: pointer;
+            font-size: 0.9em;
+            /* border-radius: 20px; */
+
+
+        }
+
+        
+        #bookDisplayGrid .bookTile .delButton{
+
+            background-color: rgb(99, 7, 7);
+            color: white;
+            padding: 0.6em;
+            border: none;
+            margin-right: 1em;
+            /* border-radius: 20px; */
+            /* font-weight: bold; */
+            cursor: pointer;
+            font-size: 0.9em;
+
+
+        }
+
+        .myh2{
+            font-family: 'Acme', 'Lobster', 'Impact';
+            color: #ffffff;
+            font-size: 3em;
+            background-color: rgba(0, 0, 0, 1);
+            padding: 0.7em;
+            margin-top: 0.5em;
+            border-radius: 1em;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Library Management</h1>
+
+
+    <form id="bookAddForm">
+
+
+        <div>
+
+        <label for="bookName"> Book Name: </label>
+        <input type="text" id="bookName">
+        <br>
+        <label for="bookAuthor"> Book Author Name: </label>
+        <input type="text" id="bookAuthor">
+
+        <br>
+        <label for="bookGenre"> Book Genre: </label>
+        <input type="text" id="bookGenre">
+
+        </div>
+
+
+        <br>
+        <button type="submit">Add Book to Database</button>
+    </form>
+
+
+    <h2 class="myh2">Current Entries</h2>
+
+
+    <div id="bookDisplayGrid">
+
+
+        <!-- <div class="bookTile">
+            <h3>Book Name</h3>
+            <p>book Author - book Genre </p>
+        </div>
+        <div class="bookTile">
+            <h3>Book Name</h3>
+            <p>book Author - book Genre </p>
+        </div>
+        <div class="bookTile">
+            <h3>Book Name</h3>
+            <p>book Author - book Genre </p>
+        </div> -->
+    </div>
+
+    <script type="module">
+        import { initializeApp,  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { collection, addDoc, getFirestore, getDocs, doc, updateDoc, deleteField, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        
+        
+                const firebaseConfig = {
+
+                    apiKey: "AIzaSyBGoTgLb9GRw5JhSfc0vN5P1uSjCONePBc",
+                    authDomain: "datareadwritesirinzamam.firebaseapp.com",
+                    projectId: "datareadwritesirinzamam",
+                    storageBucket: "datareadwritesirinzamam.appspot.com",
+                    messagingSenderId: "308434612152",
+                    appId: "1:308434612152:web:cf5530c63a2f34540ce94d",
+                    measurementId: "G-MES7QY6ZN5"
+
+                };
+
+
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const querySnapshot = await getDocs(collection(db, "books"));
+
+
+        document.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            let bookName = document.querySelector("#bookName").value;
+            let bookAuthor = document.querySelector("#bookAuthor").value;
+            let bookGenre = document.querySelector("#bookGenre").value;
+
+            try {
+
+
+
+                //authentication
+
+                let my_flag = false;
+
+                querySnapshot.forEach(async (daa) => {
+
+                    if(daa.data().bookName == bookName){
+                        my_flag = true;
+                    }
+
+                });
+
+                if (!my_flag){
+                    
+                    const docRef = await addDoc(
+                    collection(db, "books"),
+                    {
+                        bookName: bookName,
+                        bookAuthor: bookAuthor,
+                        bookGenre: bookGenre
+                    });
+                console.log("Document written with ID: ", docRef.id);
+                window.location.reload();
+
+                }else{
+                    alert("Book already exist")
+                }
+
+
+
+                //end authentication
+
+
+
+                // const docRef = await addDoc(
+                //     collection(db, "books"),
+                //     {
+                //         bookName: bookName,
+                //         bookAuthor: bookAuthor,
+                //         bookGenre: bookGenre
+                //     });
+                // console.log("Document written with ID: ", docRef.id);
+                // window.location.reload();
+                
+
+                //TO Add Items Immideatly 
+
+                        // document.getElementById("bookDisplayGrid").innerHTML = ""
+                        // querySnapshot.forEach((doc) => {
+                        // let mainDiv = document.getElementById("bookDisplayGrid")
+                        // let cardDiv = document.createElement('div');
+                        // let myH3 = document.createElement('h3');
+                        // let myPara = document.createElement('p');
+                        // let bookName1 = document.createTextNode(doc.data()['bookName'])
+                        // let bookAuthor1 = document.createTextNode(doc.data()['bookAuthor'])
+                        // let bookGenre1 = document.createTextNode(doc.data()['bookGenre'])
+                        // let nameSpacer = document.createTextNode("  -  ")
+                        // let deleteButton = document.createElement('button')
+                        // deleteButton.setAttribute('type', 'submit')
+                        // deleteButton.setAttribute('class', 'delButton')
+                        // deleteButton.innerHTML= "Delete"
+                        // myPara.appendChild(bookAuthor1)
+                        // myPara.appendChild(nameSpacer)
+                        // myPara.appendChild(bookGenre1)
+                        // myH3.appendChild(bookName1)
+                        // cardDiv.className = "bookTile"
+                        // cardDiv.appendChild(myH3)
+                        // cardDiv.appendChild(myPara)
+                        // cardDiv.appendChild(deleteButton);
+                        // mainDiv.appendChild(cardDiv)
+
+
+
+                        // });
+
+
+
+                //end of add Items
+
+                
+
+
+
+                
+
+
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+
+        })
+
+        
+        // console.log(querySnapshot)
+            querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${doc.data()} and the object is ${doc.data().bookAuthor} ${doc.data().bookGenre} ${doc.data().bookName}` );
+
+            let mainDiv = document.getElementById("bookDisplayGrid")
+            let cardDiv = document.createElement('div');
+            let myH3 = document.createElement('h3');
+            let myPara = document.createElement('p');
+            let bookName1 = document.createTextNode(doc.data().bookName)
+            let bookAuthor1 = document.createTextNode(doc.data().bookAuthor)
+            let bookGenre1 = document.createTextNode(doc.data().bookGenre)
+            let nameSpacer = document.createTextNode("  -  ")
+            let deleteButton = document.createElement('button')
+            let updateButton = document.createElement('button')
+            updateButton.setAttribute('class', 'updtButton')
+            deleteButton.setAttribute('type', 'submit')
+            updateButton.setAttribute('type', 'submit')
+            deleteButton.setAttribute('class', 'delButton')
+            deleteButton.innerHTML= "Delete"
+            updateButton.innerHTML = "Update Book Info"
+            myPara.appendChild(bookAuthor1)
+            myPara.appendChild(nameSpacer)
+            myPara.appendChild(bookGenre1)
+            myH3.appendChild(bookName1)
+            cardDiv.className = "bookTile"
+            cardDiv.appendChild(myH3)
+            cardDiv.appendChild(myPara)
+            cardDiv.appendChild(deleteButton)
+            cardDiv.appendChild(updateButton)
+            mainDiv.appendChild(cardDiv)
+
+            // for (const prop in doc) {
+            // console.log(`doc.${prop} = ${doc[prop]}`);
+            // }
+            
+
+
+
+            });
+
+
+
+            //delete
+
+
+            
+            
+
+            // const bookRef = doc(db, 'books');
+            let dBut = document.querySelectorAll('.delButton')
+            dBut.forEach(x=>{
+                x.addEventListener("click", event=>{
+                console.log(event)
+                console.log(event.target.parentNode.firstChild.innerHTML)
+
+                let forDeleteBookName = event.target.parentNode.firstChild.innerHTML
+
+                querySnapshot.forEach(async (daa) => {
+
+                    if(daa.data().bookName == forDeleteBookName){
+
+                        let delBookInfo = daa.id
+
+                        await deleteDoc(doc(db, "books", delBookInfo));
+
+
+                        console.log("Book Deleted : ", forDeleteBookName)
+
+                        location.reload();
+
+
+
+                    }
+
+
+
+                });
+
+                });
+
+            })
+
+
+            //update data
+
+            let uBut = document.querySelectorAll('.updtButton')
+            uBut.forEach(x=>{
+                x.addEventListener("click", event=>{
+                console.log(event)
+                console.log(event.target.parentNode.firstChild.innerHTML)
+
+                let newBookName = prompt("Please enter new Book Name: ", "Mein Kampf")
+                let newBookAuthor = prompt("Please enter new Book Name: ", "Adolf Hitler")
+                let newBookGenre = prompt("Please enter new Book Name: ", "Autobiography")
+
+
+                let forUpdateBookName = event.target.parentNode.firstChild.innerHTML
+
+                querySnapshot.forEach(async (daa) => {
+
+                    if(daa.data().bookName == forUpdateBookName){
+
+                        let updateBookInfo = daa.id
+                        const bookRef = doc(db, 'books', updateBookInfo);
+                        await updateDoc(bookRef, {
+                            bookName: newBookName,
+                            bookAuthor: newBookAuthor,
+                            bookGenre: newBookGenre
+                        });
+
+                        
+
+
+                        console.log("Book Updated : ", forUpdateBookName)
+
+                        location.reload();
+
+
+
+                    }
+
+
+
+                });
+
+                });
+
+            })
+            
+        
+
+            
+
+
+    </script>
+
+    
+</body>
+
+</html>
