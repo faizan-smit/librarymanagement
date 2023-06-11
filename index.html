@@ -10,7 +10,7 @@
     <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     
-    <title>Library Management 📖</title>
+    <title>Firestore🔥</title>
     <style>
 
         body{
@@ -416,7 +416,7 @@
 
                 querySnapshot.forEach(async (daa) => {
 
-                    if(daa.data().bookName == forDeleteBookName){
+                    if(daa.data().bookName == forDeleteBookName || daa.data().bookName == null){
 
                         let delBookInfo = daa.id
 
@@ -441,6 +441,7 @@
 
 
             //update data
+            let updateFlag = false
 
             let uBut = document.querySelectorAll('.updtButton')
             uBut.forEach(x=>{
@@ -457,7 +458,19 @@
 
                 querySnapshot.forEach(async (daa) => {
 
-                    if(daa.data().bookName == forUpdateBookName){
+
+                    if(daa.data().bookName == newBookName){
+                        updateFlag = true
+                        alert("Error Book with same name already exist")
+                        location.reload();
+
+                    }
+
+
+                    if(daa.data().bookName == forUpdateBookName || daa.data().bookName == null){
+
+
+                        if(updateFlag === false){
 
                         let updateBookInfo = daa.id
                         const bookRef = doc(db, 'books', updateBookInfo);
@@ -474,6 +487,7 @@
 
                         location.reload();
 
+                    }
 
 
                     }
